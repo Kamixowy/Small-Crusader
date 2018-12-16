@@ -69,8 +69,6 @@ void draw(){
  Player.posX += (nX-Player.posX-20)/playerSpeed;//Speed player
  Player.posY += (nY-Player.posY-20)/playerSpeed;
    
-   
-   	println(gameKeyCode);
 }
 
 
