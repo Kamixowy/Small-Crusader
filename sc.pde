@@ -67,3 +67,19 @@ background( 10, 255, 10 );
 };
 
 
+var drawScene3 = function() {
+background( 10, 255, 10 );
+
+
+
+};
+
+var drawScene3 = function() {
+background( 10, 255, 10 );
+
+
+
+};
+
+
+
