@@ -15,12 +15,35 @@ void setup(){
 var PPlayer = function (poX, poY){
 	this.posX = poX;
 	this.posY = poY;
+	this.swordSide = 4;
 };
 
 PPlayer.prototype.draw = function(){
 	fill(30, 67, 200);
     rect(this.posX, this.posY, 40, 40);
 };
+
+PPlayer.prototype.hit = function(){
+	if (this.swordSide === 1){  //right
+		fill(10, 10, 10);
+		rect(this.posX+40, this.posY+20, 30, 10);
+		
+	} else if (this.swordSide === 2){  //up
+		fill(10, 10, 10);
+		rect(this.posX+20, this.posY-30, 10, 30);
+		
+	} else if (this.swordSide === 3){  //left
+		fill(10, 10, 10);
+		rect(this.posX-30, this.posY+10, 30, 10);
+		
+	} else if (this.swordSide === 4){  //down
+		fill(10, 10, 10);
+		rect(this.posX+10, this.posY+40, 10, 30);
+		
+	} else{
+		println('error ');
+	}
+}
 }
 
 
@@ -38,12 +61,13 @@ void draw(){
 		drawScene2();
 	}
 
- // background( 10, 255, 10 );
+	
   
  Player.draw();
+ Player.hit();
  Player.posX += (nX-Player.posX-20)/playerSpeed;//Speed player
  Player.posY += (nY-Player.posY-20)/playerSpeed;
- println(nX);     
+   
 }
 
 
