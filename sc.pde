@@ -1,13 +1,14 @@
 
 var currentScene = 2;
 
-
+var nX, nY;
+var playerSpeed = 10;
 
 
 void setup(){
   size( 500, 500 );
  // strokeWeight( 10 );
-//  frameRate( 15 );
+  frameRate( 30 );
 
 }
 {// Object
@@ -21,6 +22,10 @@ PPlayer.prototype.draw = function(){
     rect(this.posX, this.posY, 40, 40);
 };
 }
+
+
+
+
 var Player = new PPlayer (15, 15);
 
 
@@ -36,8 +41,9 @@ void draw(){
  // background( 10, 255, 10 );
   
  Player.draw();
-  Player.posX += 1;
-                
+ Player.posX += (nX-Player.posX-20)/playerSpeed;//Speed player
+ Player.posY += (nY-Player.posY-20)/playerSpeed;
+ println(nX);     
 }
 
 
@@ -66,4 +72,6 @@ background( 10, 255, 10 );
 
 };
 
+//license beerware
+//Author Kamixowy
 
