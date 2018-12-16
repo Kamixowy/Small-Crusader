@@ -3,6 +3,7 @@ var currentScene = 2;
 
 var nX, nY;
 var playerSpeed = 10;
+var gameKeyCode = 1;
 
 
 void setup(){
@@ -68,6 +69,8 @@ void draw(){
  Player.posX += (nX-Player.posX-20)/playerSpeed;//Speed player
  Player.posY += (nY-Player.posY-20)/playerSpeed;
    
+   
+   	println(gameKeyCode);
 }
 
 
@@ -77,7 +80,25 @@ void mouseMoved(){
   nY = mouseY;  
 }
 
-
+void keyPressed (){
+	
+	gameKeyCode = keyCode;
+	println(gameKeyCode);
+	
+	if (gameKeyCode === 68) {
+		Player.swordSide = 1;
+		gameKeyCode = 1;
+	} else if (gameKeyCode === 87) {
+		Player.swordSide = 2;
+		gameKeyCode = 1;
+	} else if (gameKeyCode === 65) {
+		Player.swordSide = 3;
+		gameKeyCode = 1;
+	} else if (gameKeyCode === 83) {
+		Player.swordSide = 4;
+		gameKeyCode = 1;
+	}
+}
 
 
 
