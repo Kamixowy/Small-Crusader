@@ -1,7 +1,7 @@
 
 var currentScene = 2;
-var nX, nY;
-var playerSpeed = 10;
+var nX = 250, nY = 250;
+var playerSpeed = 12;
 var gameKeyCode = 1;
 var wayS = 5;
 const colTab = [];
@@ -32,6 +32,18 @@ PPlayer.prototype.draw = function(){
 	
 	
 	colTab[0] = [this.posX, this.posY, this.size];
+	
+		if(frane%3 === 0){
+		for(var a = 0 ; a<= colTab.length-1; a++){
+		if(a != this.colNum){
+		if(this.posX > colTab[a][0] && this.posX < colTab[a][0] + colTab[a][2] && this.posY > colTab[a][1] && this.posY < colTab[a][1] + colTab[a][2]) currentScene = 3;
+		else if(this.posX+this.size > colTab[a][0] && this.posX+this.size < colTab[a][0] + colTab[a][2] && this.posY > colTab[a][1] && this.posY < colTab[a][1] + colTab[a][2]) currentScene = 3;
+		else if(this.posX > colTab[a][0] && this.posX < colTab[a][0] + colTab[a][2] && this.posY+this.size > colTab[a][1] && this.posY+this.size < colTab[a][1] + colTab[a][2]) currentScene = 3;
+		else if(this.posX+this.size > colTab[a][0] && this.posX+this.size < colTab[a][0] + colTab[a][2] && this.posY+this.size > colTab[a][1] && this.posY+this.size < colTab[a][1] + colTab[a][2]) currentScene = 3;
+			
+		}
+			
+	} }
 };
 
 PPlayer.prototype.hit = function(){
@@ -77,17 +89,14 @@ PEnemy.prototype.waySide = function (){
 	this.way = wayS; //get way side from global virable
 	colTab[this.colNum] = [this.posX, this.posY, this.size]; //get coolision info for table
 	
-	if(frane%3 === 0){
-	for(var a = 0 ; a<= 2; a++){
-		if(a != this.colNum){
-		if(this.posX > colTab[a][0] && this.posX < colTab[a][0] + colTab[a][2] && this.posY > colTab[a][1] && this.posY < colTab[a][1] + colTab[a][2]) println("auuuu");
-		else if(this.posX+this.size > colTab[a][0] && this.posX+this.size < colTab[a][0] + colTab[a][2] && this.posY > colTab[a][1] && this.posY < colTab[a][1] + colTab[a][2]) println("auuuu");
-		else if(this.posX > colTab[a][0] && this.posX < colTab[a][0] + colTab[a][2] && this.posY+this.size > colTab[a][1] && this.posY+this.size < colTab[a][1] + colTab[a][2]) println("auuuu");
-		else if(this.posX+this.size > colTab[a][0] && this.posX+this.size < colTab[a][0] + colTab[a][2] && this.posY+this.size > colTab[a][1] && this.posY+this.size < colTab[a][1] + colTab[a][2]) println("auuuu");
-			
+
+if(frane%3 === 0){
+			if(this.posX <= 1) this.posX = 2;
+			else if(this.posX + this.size >= 499)this.posX = 498 - this.size;
+			if(this.posY <= 1) this.posY = 2;
+			else if(this.posY + this.size >= 499) this.posY = 498 - this.size;
+		
 		}
-			
-	} }
 	
 	
 	if( this.way === 1){ // move this object
@@ -106,9 +115,10 @@ PEnemy.prototype.waySide = function (){
 
 
 
-var Player = new PPlayer (15, 15);
+var Player = new PPlayer (250, 250);
 var En1 = new PEnemy (20, 30, 5, 1); 
 var En2 = new PEnemy (50, 50, 7, 2); 
+var En3 = new PEnemy (400, 400, 6, 3);
 
 void draw(){
 	
@@ -134,6 +144,9 @@ void draw(){
    
    En2.draw();
    En2.waySide();
+   
+   En3.draw();
+   En3.waySide();
 }
 
 
@@ -193,3 +206,18 @@ background( 10, 255, 10 );
 //license beerware
 //Author Kamixowy
 
+
+
+
+/*	
+	if(frane%3 === 0){
+for(var a = 0 ; a<= 2; a++){
+		if(a != this.colNum){
+		if(this.posX > colTab[a][0] && this.posX < colTab[a][0] + colTab[a][2] && this.posY > colTab[a][1] && this.posY < colTab[a][1] + colTab[a][2]) println("auuuu");
+		else if(this.posX+this.size > colTab[a][0] && this.posX+this.size < colTab[a][0] + colTab[a][2] && this.posY > colTab[a][1] && this.posY < colTab[a][1] + colTab[a][2]) println("auuuu");
+		else if(this.posX > colTab[a][0] && this.posX < colTab[a][0] + colTab[a][2] && this.posY+this.size > colTab[a][1] && this.posY+this.size < colTab[a][1] + colTab[a][2]) println("auuuu");
+		else if(this.posX+this.size > colTab[a][0] && this.posX+this.size < colTab[a][0] + colTab[a][2] && this.posY+this.size > colTab[a][1] && this.posY+this.size < colTab[a][1] + colTab[a][2]) println("auuuu");
+			
+		}
+			
+	} }*/
