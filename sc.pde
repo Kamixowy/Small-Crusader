@@ -37,7 +37,7 @@ PPlayer.prototype.draw = function(){
 	
 	colTab[0] = [this.posX, this.posY, this.size];
 	
-		if(frane%3 === 0){
+		if(frane%2 === 0){
 		for(var a = 0 ; a<= colTab.length-1; a++){
 		if(a != this.colNum){
 		if(this.posX > colTab[a][0] && this.posX < colTab[a][0] + colTab[a][2] && this.posY > colTab[a][1] && this.posY < colTab[a][1] + colTab[a][2]) currentScene = 4;
@@ -336,7 +336,7 @@ gameElemnts = true;
 	 }
 	
    if(click === true){
-	   numberEn++;
+	   if(numberEn<=3) numberEn++;
 	   click = false;
 }
  
@@ -351,7 +351,6 @@ fill(30, 67, 200);
 rect(200, 200, 100, 100);
 fill(250, 250, 250);
 text("Jeszcze raz!", 230, 250);
-
  //reset enemy position
    En1.posX = 1000;
    En1.posY = 1000;
@@ -373,15 +372,15 @@ text("Jeszcze raz!", 230, 250);
    En9.posY = 1000;
    En10.posX = 1000;
    En10.posY = 1000;
- 
-	player.nX = 1000;
-	player.nY = 1000;
 
 
-if(nX>=200 && nX<=300 && nY >= 200 && nY <= 300 && click === true){
- currentScene = 3;	
+	Player.posX = 2000;
+	Player.posY = 2000;
+	
+if(nX>=200 && nX<=300 && nY >= 200 && nY <= 300 && click === true ){	
  click = false;
  numberEn = 1;
+ currentScene = 3;
 }
 };
 
