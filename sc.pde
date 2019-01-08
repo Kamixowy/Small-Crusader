@@ -1,5 +1,5 @@
 
-var currentScene = 3;
+var currentScene = 1;
 
 var nX = 250, nY = 250;
 var playerSpeed = 12;
@@ -141,9 +141,11 @@ void draw(){
         drawScene1();
 	} else if (currentScene === 2) {
 		drawScene2();
-	}  if (currentScene === 3) {
+	} else  if (currentScene === 3) {
 		drawScene3();
-	} 
+	} else  if (currentScene === 4) {
+		drawScene4();
+	} else {}
 	
 	
  if(gameElemnts === true){
@@ -248,6 +250,11 @@ fill(30, 67, 200);
 rect(200, 200, 100, 100);
 fill(250, 250, 250);
 text("Sart", 245, 250);
+
+if(nX>=200 && nX<=300 && nY >= 200 && nY <= 300 && click === true){
+ currentScene = 3;	
+ click = false;
+}
 };
 
 var drawScene2 = function() {
@@ -336,6 +343,48 @@ gameElemnts = true;
 
 
 };
+
+var drawScene4 = function() {
+gameElemnts = false;
+background( 255, 50, 50 );
+fill(30, 67, 200);
+rect(200, 200, 100, 100);
+fill(250, 250, 250);
+text("Jeszcze raz!", 230, 250);
+
+ //reset enemy position
+   En1.posX = 1000;
+   En1.posY = 1000;
+   En2.posX = 1000;
+   En2.posY = 1000;
+   En3.posX = 1000;
+   En3.posY = 1000;
+   En4.posX = 1000;
+   En4.posY = 1000;
+   En5.posX = 1000;
+   En5.posY = 1000;
+   En6.posX = 1000;
+   En6.posY = 1000;
+   En7.posX = 1000;
+   En7.posY = 1000;
+   En8.posX = 1000;
+   En8.posY = 1000;
+   En9.posX = 1000;
+   En9.posY = 1000;
+   En10.posX = 1000;
+   En10.posY = 1000;
+ 
+	player.nX = 1000;
+	player.nY = 1000;
+
+
+if(nX>=200 && nX<=300 && nY >= 200 && nY <= 300 && click === true){
+ currentScene = 3;	
+ click = false;
+ numberEn = 1;
+}
+};
+
 //license beerware
 //Author Kamixowy
 
