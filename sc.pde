@@ -1,11 +1,15 @@
 
-var currentScene = 2;
-var nX, nY;
-var playerSpeed = 10;
+var currentScene = 1;
+
+var nX = 250, nY = 250;
+var playerSpeed = 12;
 var gameKeyCode = 1;
 var wayS = 5;
 const colTab = [];
 var frane = 0;
+var gameElemnts = true;
+var numberEn = 1;
+void click = false;
 
 void setup(){
   size( 500, 500 );
@@ -32,6 +36,18 @@ PPlayer.prototype.draw = function(){
 	
 	
 	colTab[0] = [this.posX, this.posY, this.size];
+	
+		if(frane%2 === 0){
+		for(var a = 0 ; a<= colTab.length-1; a++){
+		if(a != this.colNum){
+		if(this.posX > colTab[a][0] && this.posX < colTab[a][0] + colTab[a][2] && this.posY > colTab[a][1] && this.posY < colTab[a][1] + colTab[a][2]) currentScene = 4;
+		else if(this.posX+this.size > colTab[a][0] && this.posX+this.size < colTab[a][0] + colTab[a][2] && this.posY > colTab[a][1] && this.posY < colTab[a][1] + colTab[a][2]) currentScene = 4;
+		else if(this.posX > colTab[a][0] && this.posX < colTab[a][0] + colTab[a][2] && this.posY+this.size > colTab[a][1] && this.posY+this.size < colTab[a][1] + colTab[a][2]) currentScene = 4;
+		else if(this.posX+this.size > colTab[a][0] && this.posX+this.size < colTab[a][0] + colTab[a][2] && this.posY+this.size > colTab[a][1] && this.posY+this.size < colTab[a][1] + colTab[a][2]) currentScene = 4;
+			
+		}
+			
+	} }
 };
 
 PPlayer.prototype.hit = function(){
@@ -77,17 +93,14 @@ PEnemy.prototype.waySide = function (){
 	this.way = wayS; //get way side from global virable
 	colTab[this.colNum] = [this.posX, this.posY, this.size]; //get coolision info for table
 	
-	if(frane%3 === 0){
-	for(var a = 0 ; a<= 2; a++){
-		if(a != this.colNum){
-		if(this.posX > colTab[a][0] && this.posX < colTab[a][0] + colTab[a][2] && this.posY > colTab[a][1] && this.posY < colTab[a][1] + colTab[a][2]) println("auuuu");
-		else if(this.posX+this.size > colTab[a][0] && this.posX+this.size < colTab[a][0] + colTab[a][2] && this.posY > colTab[a][1] && this.posY < colTab[a][1] + colTab[a][2]) println("auuuu");
-		else if(this.posX > colTab[a][0] && this.posX < colTab[a][0] + colTab[a][2] && this.posY+this.size > colTab[a][1] && this.posY+this.size < colTab[a][1] + colTab[a][2]) println("auuuu");
-		else if(this.posX+this.size > colTab[a][0] && this.posX+this.size < colTab[a][0] + colTab[a][2] && this.posY+this.size > colTab[a][1] && this.posY+this.size < colTab[a][1] + colTab[a][2]) println("auuuu");
-			
+
+if(frane%3 === 0){
+			if(this.posX <= 1) this.posX = 2;
+			else if(this.posX + this.size >= 499)this.posX = 498 - this.size;
+			if(this.posY <= 1) this.posY = 2;
+			else if(this.posY + this.size >= 499) this.posY = 498 - this.size;
+		
 		}
-			
-	} }
 	
 	
 	if( this.way === 1){ // move this object
@@ -105,10 +118,19 @@ PEnemy.prototype.waySide = function (){
 }	
 
 
-
-var Player = new PPlayer (15, 15);
-var En1 = new PEnemy (20, 30, 5, 1); 
-var En2 = new PEnemy (50, 50, 7, 2); 
+{ //declarate ojects
+var Player = new PPlayer (2500, 2500);
+var En1 = new PEnemy (2000, 30, 5, 1); 
+var En2 = new PEnemy (5000, 50, 7, 2); 
+var En3 = new PEnemy (4000, 400, 6, 3);
+var En4 = new PEnemy (4000, 400, 6, 4);
+var En5 = new PEnemy (4000, 400, 6, 5);
+var En6 = new PEnemy (4000, 400, 6, 6);
+var En7 = new PEnemy (4000, 400, 6, 7);
+var En8 = new PEnemy (4000, 400, 6, 8);
+var En9 = new PEnemy (4000, 400, 6, 9);
+var En10 = new PEnemy (4000, 400, 6, 10);
+}
 
 void draw(){
 	
@@ -119,22 +141,65 @@ void draw(){
         drawScene1();
 	} else if (currentScene === 2) {
 		drawScene2();
-	}
-
+	} else  if (currentScene === 3) {
+		drawScene3();
+	} else  if (currentScene === 4) {
+		drawScene4();
+	} else {}
 	
- 
+	
+ if(gameElemnts === true){
+	 
  Player.draw();
- Player.hit();
- Player.posX += (nX-Player.posX-20)/playerSpeed;//Speed player
- Player.posY += (nY-Player.posY-20)/playerSpeed;
+
    
    
-   En1.draw();
-   En1.waySide();
+switch(numberEn){
+	
+  case 10:
+   En10.draw();
+   En10.waySide();
    
+  case 9:
+   En9.draw();
+   En9.waySide();
+   
+  case 8:
+   En8.draw();
+   En8.waySide();	
+	
+  case 7:
+   En7.draw();
+   En7.waySide();
+	
+  case 6:
+   En6.draw();
+   En6.waySide();
+   
+  case 5:
+   En5.draw();
+   En5.waySide();
+   
+  case 4:
+   En4.draw();
+   En4.waySide();	
+	
+  case 3:
+   En3.draw();
+   En3.waySide();
+   
+  case 2:
    En2.draw();
    En2.waySide();
-}
+   
+  case 1:
+   En1.draw();
+   En1.waySide();
+   break;
+   
+   default:
+   break;
+}}}
 
 
 void mouseMoved(){
@@ -173,39 +238,153 @@ void keyPressed (){
 	
 }
 
+void mouseClicked (){
+	click = true;
+}
 
 
 var drawScene1 = function() {
+gameElemnts = false;
 background( 200, 100, 50 );
 fill(30, 67, 200);
 rect(200, 200, 100, 100);
 fill(250, 250, 250);
 text("Sart", 245, 250);
+
+if(nX>=200 && nX<=300 && nY >= 200 && nY <= 300 && click === true){
+ currentScene = 3;	
+ click = false;
+}
 };
 
 var drawScene2 = function() {
 background( 10, 255, 10 );
+gameElemnts = true;
+
+ Player.hit();
+ Player.posX += (nX-Player.posX-20)/playerSpeed;//Speed player
+ Player.posY += (nY-Player.posY-20)/playerSpeed;
+
+};
+
+var drawScene3 = function() {
+background( 10, 255, 100 );
+gameElemnts = true;
+
+	
+	switch(numberEn){
+		
+  case 10:
+   En10.posX = nX;
+   En10.posY = nY;
+   break;		
+
+   case 9:
+   En9.posX = nX;
+   En9.posY = nY;
+   break;
+   
+  case 8:
+   En8.posX = nX;
+   En8.posY = nY;
+   break;
+   
+  case 7:
+   En7.posX = nX;
+   En7.posY = nY;
+   break;
+
+   case 6:
+   En6.posX = nX;
+   En6.posY = nY;
+   break;
+   
+  case 5:
+   En5.posX = nX;
+   En5.posY = nY;
+   break;
+   
+  case 4:
+   En4.posX = nX;
+   En4.posY = nY;
+   break;
+		
+   case 3:
+   En3.posX = nX;
+   En3.posY = nY;
+   break;
+   
+  case 2:
+   En2.posX = nX;
+   En2.posY = nY;
+   break;
+   
+  case 1:
+   En1.posX = nX;
+   En1.posY = nY;
+   break;
+   
+   default:
+   break;
+	}
+	
+	 if(numberEn >= 4) {
+	currentScene = 2;
+	Player.posX = 240;
+	Player.posY = 240;
+	for(var a = 0; a<99999999; a++);
+	 }
+	
+   if(click === true){
+	   if(numberEn<=3) numberEn++;
+	   click = false;
+}
+ 
 
 
+};
 
+var drawScene4 = function() {
+gameElemnts = false;
+background( 255, 50, 50 );
+fill(30, 67, 200);
+rect(200, 200, 100, 100);
+fill(250, 250, 250);
+text("Jeszcze raz!", 230, 250);
+ //reset enemy position
+   En1.posX = 1000;
+   En1.posY = 1000;
+   En2.posX = 1000;
+   En2.posY = 1000;
+   En3.posX = 1000;
+   En3.posY = 1000;
+   En4.posX = 1000;
+   En4.posY = 1000;
+   En5.posX = 1000;
+   En5.posY = 1000;
+   En6.posX = 1000;
+   En6.posY = 1000;
+   En7.posX = 1000;
+   En7.posY = 1000;
+   En8.posX = 1000;
+   En8.posY = 1000;
+   En9.posX = 1000;
+   En9.posY = 1000;
+   En10.posX = 1000;
+   En10.posY = 1000;
+
+
+	Player.posX = 2000;
+	Player.posY = 2000;
+	
+if(nX>=200 && nX<=300 && nY >= 200 && nY <= 300 && click === true ){	
+ click = false;
+ numberEn = 1;
+ currentScene = 3;
+}
 };
 
 //license beerware
 //Author Kamixowy
-
-var drawScene3 = function() {
-background( 10, 255, 10 );
-
-
-
-};
-
-var drawScene3 = function() {
-background( 10, 255, 10 );
-
-
-
-};
-
 
 
