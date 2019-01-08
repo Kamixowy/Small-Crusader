@@ -2,3 +2,5 @@
 
 Please open file with .html  
 application should work in Mozilla browse
+
+Phase ALPHA!
