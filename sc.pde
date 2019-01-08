@@ -388,17 +388,3 @@ if(nX>=200 && nX<=300 && nY >= 200 && nY <= 300 && click === true ){
 //Author Kamixowy
 
 
-
-
-/*	
-	if(frane%3 === 0){
-for(var a = 0 ; a<= 2; a++){
-		if(a != this.colNum){
-		if(this.posX > colTab[a][0] && this.posX < colTab[a][0] + colTab[a][2] && this.posY > colTab[a][1] && this.posY < colTab[a][1] + colTab[a][2]) println("auuuu");
-		else if(this.posX+this.size > colTab[a][0] && this.posX+this.size < colTab[a][0] + colTab[a][2] && this.posY > colTab[a][1] && this.posY < colTab[a][1] + colTab[a][2]) println("auuuu");
-		else if(this.posX > colTab[a][0] && this.posX < colTab[a][0] + colTab[a][2] && this.posY+this.size > colTab[a][1] && this.posY+this.size < colTab[a][1] + colTab[a][2]) println("auuuu");
-		else if(this.posX+this.size > colTab[a][0] && this.posX+this.size < colTab[a][0] + colTab[a][2] && this.posY+this.size > colTab[a][1] && this.posY+this.size < colTab[a][1] + colTab[a][2]) println("auuuu");
-			
-		}
-			
-	} }*/
