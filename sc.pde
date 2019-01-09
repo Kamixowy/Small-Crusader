@@ -1,5 +1,5 @@
 
-var currentScene = 1;
+var currentScene = 5;
 
 var nX = 250, nY = 250;
 var playerSpeed = 12;
@@ -132,6 +132,9 @@ var En9 = new PEnemy (4000, 400, 6, 9);
 var En10 = new PEnemy (4000, 400, 6, 10);
 }
 
+   PImage b;
+   b = loadImage("Player.pnp");
+
 void draw(){
 	
 	if (++frane >=11) frane = 0;
@@ -145,6 +148,8 @@ void draw(){
 		drawScene3();
 	} else  if (currentScene === 4) {
 		drawScene4();
+	} else  if (currentScene === 5) {
+		drawScene5();
 	} else {}
 	
 	
@@ -383,6 +388,12 @@ if(nX>=200 && nX<=300 && nY >= 200 && nY <= 300 && click === true ){
  currentScene = 3;
 }
 };
+
+var drawScene5 = function() {
+	gameElemnts = false;
+	rect(23,23,23,23);
+	 image(b, 50, 50);
+}
 
 //license beerware
 //Author Kamixowy
