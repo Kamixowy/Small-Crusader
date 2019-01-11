@@ -1,5 +1,5 @@
 
-var currentScene = 5;
+var currentScene = 3;
 
 var nX = 250, nY = 250;
 var playerSpeed = 12;
@@ -15,6 +15,8 @@ void setup(){
   size( 500, 500 );
  // strokeWeight( 10 );
   frameRate( 30 );
+  
+
 
 }
 {// Object
@@ -30,8 +32,8 @@ var PPlayer = function (poX, poY){
 
 PPlayer.prototype.draw = function(){
 	fill(30, 150, 200);
-    rect(this.posX, this.posY, this.size, this.size);
-	
+    //rect(this.posX, this.posY, this.size, this.size);
+	image(IPlayerP, this.posX, this.posY, this.size, this.size);
 	
 	
 	
@@ -86,7 +88,8 @@ var PEnemy = function (poX, poY, spee, coNum){
 
 PEnemy.prototype.draw = function (){ //drawing function
 	fill(30, 67, 200);
-	rect(this.posX, this.posY, this.size, this.size);
+	//rect(this.posX, this.posY, this.size, this.size);
+	image(IEnemyL, this.posX, this.posY, this.size, this.size);
 }
 
 PEnemy.prototype.waySide = function (){
@@ -132,8 +135,14 @@ var En9 = new PEnemy (4000, 400, 6, 9);
 var En10 = new PEnemy (4000, 400, 6, 10);
 }
 
-   PImage b;
-   b = loadImage("Player.pnp");
+   PImage IPlayerP;
+   IPlayerP = loadImage("images/PlayerP.png");
+   
+   PImage IPlayerL;
+   IPlayerL = loadImage("images/PlayerL.png");
+   
+   PImage IEnemyL;
+   IEnemyL = loadImage("images/EnemyL.png");
 
 void draw(){
 	
@@ -392,7 +401,7 @@ if(nX>=200 && nX<=300 && nY >= 200 && nY <= 300 && click === true ){
 var drawScene5 = function() {
 	gameElemnts = false;
 	rect(23,23,23,23);
-	 image(b, 50, 50);
+	 
 }
 
 //license beerware
