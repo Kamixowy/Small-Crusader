@@ -15,6 +15,8 @@ void setup(){
   size( 500, 500 );
  // strokeWeight( 10 );
   frameRate( 30 );
+  
+
 
 }
 {// Object
@@ -30,8 +32,8 @@ var PPlayer = function (poX, poY){
 
 PPlayer.prototype.draw = function(){
 	fill(30, 150, 200);
-    rect(this.posX, this.posY, this.size, this.size);
-	
+    //rect(this.posX, this.posY, this.size, this.size);
+	image(IPlayerP, this.posX, this.posY, this.size, this.size);
 	
 	
 	
@@ -86,7 +88,8 @@ var PEnemy = function (poX, poY, spee, coNum){
 
 PEnemy.prototype.draw = function (){ //drawing function
 	fill(30, 67, 200);
-	rect(this.posX, this.posY, this.size, this.size);
+	//rect(this.posX, this.posY, this.size, this.size);
+	image(IEnemyL, this.posX, this.posY, this.size, this.size);
 }
 
 PEnemy.prototype.waySide = function (){
@@ -132,6 +135,24 @@ var En9 = new PEnemy (4000, 400, 6, 9);
 var En10 = new PEnemy (4000, 400, 6, 10);
 }
 
+   PImage IPlayerP;
+   IPlayerP = loadImage("images/PlayerP.png");
+   
+   PImage IPlayerL;
+   IPlayerL = loadImage("images/PlayerL.png");
+   
+   PImage IEnemyL;
+   IEnemyL = loadImage("images/EnemyL.png");
+   
+   PImage IDeus1;
+   IDeus1 = loadImage("images/deus1.png");
+   
+   PImage IDeus2;
+   IDeus2 = loadImage("images/deus2.png");
+   
+   PImage IReset;
+   IReset = loadImage("images/reset.png");
+
 void draw(){
 	
 	if (++frane >=11) frane = 0;
@@ -145,6 +166,8 @@ void draw(){
 		drawScene3();
 	} else  if (currentScene === 4) {
 		drawScene4();
+	} else  if (currentScene === 5) {
+		drawScene5();
 	} else {}
 	
 	
@@ -246,13 +269,16 @@ void mouseClicked (){
 var drawScene1 = function() {
 gameElemnts = false;
 background( 200, 100, 50 );
+/*
 fill(30, 67, 200);
 rect(200, 200, 100, 100);
 fill(250, 250, 250);
 text("Sart", 245, 250);
-
-if(nX>=200 && nX<=300 && nY >= 200 && nY <= 300 && click === true){
+*/
+image(IDeus1, 125, 200, 250, 83);
+if(nX>=125 && nX<=375 && nY >= 200 && nY <= 283 && click === true){
  currentScene = 3;	
+ image(IDeus2, 125, 200, 250, 83);
  click = false;
 }
 };
@@ -270,6 +296,7 @@ gameElemnts = true;
 var drawScene3 = function() {
 background( 10, 255, 100 );
 gameElemnts = true;
+gameKeyCode = keyCode = wayS = 12;
 
 	
 	switch(numberEn){
@@ -347,10 +374,14 @@ gameElemnts = true;
 var drawScene4 = function() {
 gameElemnts = false;
 background( 255, 50, 50 );
+/*
 fill(30, 67, 200);
 rect(200, 200, 100, 100);
 fill(250, 250, 250);
 text("Jeszcze raz!", 230, 250);
+*/
+image(IReset, 125, 200, 250, 83);
+
  //reset enemy position
    En1.posX = 1000;
    En1.posY = 1000;
@@ -373,16 +404,22 @@ text("Jeszcze raz!", 230, 250);
    En10.posX = 1000;
    En10.posY = 1000;
 
-
 	Player.posX = 2000;
 	Player.posY = 2000;
 	
-if(nX>=200 && nX<=300 && nY >= 200 && nY <= 300 && click === true ){	
+if(nX>=125 && nX<=375 && nY >= 200 && nY <= 283 && click === true){	
  click = false;
  numberEn = 1;
  currentScene = 3;
 }
 };
+
+var drawScene5 = function() {
+	gameElemnts = false;
+	rect(23,23,23,23);
+	image(IDeus2,0,0,250,83);
+	 
+}
 
 //license beerware
 //Author Kamixowy
