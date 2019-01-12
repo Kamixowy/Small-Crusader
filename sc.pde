@@ -135,6 +135,7 @@ var En9 = new PEnemy (4000, 400, 6, 9);
 var En10 = new PEnemy (4000, 400, 6, 10);
 }
 
+{ //declarate images
    PImage IPlayerP;
    IPlayerP = loadImage("images/PlayerP.png");
    
@@ -152,7 +153,8 @@ var En10 = new PEnemy (4000, 400, 6, 10);
    
    PImage IReset;
    IReset = loadImage("images/reset.png");
-
+}
+   
 void draw(){
 	
 	if (++frane >=11) frane = 0;
@@ -275,7 +277,10 @@ rect(200, 200, 100, 100);
 fill(250, 250, 250);
 text("Sart", 245, 250);
 */
+
 image(IDeus1, 125, 200, 250, 83);
+
+
 if(nX>=125 && nX<=375 && nY >= 200 && nY <= 283 && click === true){
  currentScene = 3;	
  image(IDeus2, 125, 200, 250, 83);
@@ -355,7 +360,7 @@ gameKeyCode = keyCode = wayS = 12;
    break;
 	}
 	
-	 if(numberEn >= 4) {
+	 if(numberEn >= 3) {
 	currentScene = 2;
 	Player.posX = 240;
 	Player.posY = 240;
@@ -363,7 +368,7 @@ gameKeyCode = keyCode = wayS = 12;
 	 }
 	
    if(click === true){
-	   if(numberEn<=3) numberEn++;
+	   if(numberEn<=2) numberEn++;
 	   click = false;
 }
  
@@ -382,7 +387,7 @@ text("Jeszcze raz!", 230, 250);
 */
 image(IReset, 125, 200, 250, 83);
 
- //reset enemy position
+{//reset enemy position
    En1.posX = 1000;
    En1.posY = 1000;
    En2.posX = 1000;
@@ -406,6 +411,7 @@ image(IReset, 125, 200, 250, 83);
 
 	Player.posX = 2000;
 	Player.posY = 2000;
+}	
 	
 if(nX>=125 && nX<=375 && nY >= 200 && nY <= 283 && click === true){	
  click = false;
