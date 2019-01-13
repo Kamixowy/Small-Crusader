@@ -1,5 +1,12 @@
 
 var currentScene = 1;
+var scoreEnemy = 30;
+var scorePlayer = 4;
+
+var getScoreAfterReset = 20;
+var howManySecondsGetPointForEnemy = 2;
+var howManySecondsLosePointForEnemy = 4;
+
 
 var nX = 250, nY = 250;
 var playerSpeed = 12;
@@ -8,20 +15,25 @@ var wayS = 5;
 const colTab = [];
 var frane = 0;
 var gameElemnts = true;
+var gameEnemyMove = true;
 var numberEn = 1;
-void click = false;
+var click = false;
+var showSpeedPoint = false;
+var tSecond = 0;
+var m, nA, nB ; //helpful virables: draw, scene2 
 
 void setup(){
   size( 500, 500 );
  // strokeWeight( 10 );
   frameRate( 30 );
-  
-
-
+ 
 }
+
+
 {// Object
 
 	{ //player
+	
 var PPlayer = function (poX, poY){
 	this.posX = poX;
 	this.posY = poY;
@@ -50,7 +62,39 @@ PPlayer.prototype.draw = function(){
 		}
 			
 	} }
+	
+	if (showSpeedPoint){
+		textFont(PixelFont,15);
+		text(playerSpeed, this.posX +10, this.posY -10);
+	}
+	
 };
+
+PPlayer.prototype.config = function (){
+	if(wayS == 2 && this.size <65 ){
+		this.size++;
+		scorePlayer += 4;
+		wayS = 99;
+	}
+	
+	if(wayS == 4 && scorePlayer >= 4 && this.size >= 10){
+		this.size--;
+		scorePlayer -= 4;
+		wayS = 99;
+	}
+	
+	if(wayS == 1 && scorePlayer >= 4 && playerSpeed >= 2){
+		playerSpeed--;
+		scorePlayer -= 4;
+		wayS = 99;
+	}
+	
+	if(wayS == 3 && playerSpeed <= 25){
+		playerSpeed++;
+		scorePlayer += 4;
+		wayS = 99;
+	}
+}
 
 PPlayer.prototype.hit = function(){
 	/*if (this.swordSide === 1){  //right
@@ -74,6 +118,7 @@ PPlayer.prototype.hit = function(){
 	} */
 } 
 }
+
 	{// Enemy
 var PEnemy = function (poX, poY, spee, coNum){
 	this.posX = poX;
@@ -90,9 +135,22 @@ PEnemy.prototype.draw = function (){ //drawing function
 	fill(30, 67, 200);
 	//rect(this.posX, this.posY, this.size, this.size);
 	image(IEnemyL, this.posX, this.posY, this.size, this.size);
+	textFont(PixelFont,15);
+	if (showSpeedPoint){
+		text(this.speed, this.posX +10, this.posY -10);
+		if(nX>this.posX && nX<this.posX+this.size && nY>this.posY && nY<this.posY+this.size && click === true && mouseButton == LEFT && scoreEnemy >= 5){
+			this.speed++;
+			click = false;
+			scoreEnemy -=5;
+		}
+	
+	}
 }
 
 PEnemy.prototype.waySide = function (){
+
+if(gameEnemyMove == true){
+
 	this.way = wayS; //get way side from global virable
 	colTab[this.colNum] = [this.posX, this.posY, this.size]; //get coolision info for table
 	
@@ -115,7 +173,7 @@ if(frane%3 === 0){
 	} else if ( this.way === 4){
 		this.posY += this.speed;
 	}
-}
+}}
 }
 
 }	
@@ -124,17 +182,18 @@ if(frane%3 === 0){
 { //declarate ojects
 var Player = new PPlayer (2500, 2500);
 var En1 = new PEnemy (2000, 30, 5, 1); 
-var En2 = new PEnemy (5000, 50, 7, 2); 
-var En3 = new PEnemy (4000, 400, 6, 3);
-var En4 = new PEnemy (4000, 400, 6, 4);
-var En5 = new PEnemy (4000, 400, 6, 5);
-var En6 = new PEnemy (4000, 400, 6, 6);
-var En7 = new PEnemy (4000, 400, 6, 7);
-var En8 = new PEnemy (4000, 400, 6, 8);
-var En9 = new PEnemy (4000, 400, 6, 9);
-var En10 = new PEnemy (4000, 400, 6, 10);
+var En2 = new PEnemy (5000, 50, 5, 2); 
+var En3 = new PEnemy (4000, 400, 5, 3);
+var En4 = new PEnemy (4000, 400, 5, 4);
+var En5 = new PEnemy (4000, 400, 5, 5);
+var En6 = new PEnemy (4000, 400, 5, 6);
+var En7 = new PEnemy (4000, 400, 5, 7);
+var En8 = new PEnemy (4000, 400, 5, 8);
+var En9 = new PEnemy (4000, 400, 5, 9);
+var En10 = new PEnemy (4000, 400, 5, 10);
 }
 
+{ //declarate images and font
    PImage IPlayerP;
    IPlayerP = loadImage("images/PlayerP.png");
    
@@ -152,10 +211,27 @@ var En10 = new PEnemy (4000, 400, 6, 10);
    
    PImage IReset;
    IReset = loadImage("images/reset.png");
+   
 
+   PFont PixelFont = loadFont("Pixeled.ttf");
+	//textFont(Pixela, 32);
+		text("elo", 23, 159);
+   
+}
+  
+
+
+  
 void draw(){
 	
 	if (++frane >=11) frane = 0;
+
+	if(m != second()){
+		tSecond++;
+		m = second();
+	}	
+	
+
 
   
     if (currentScene === 1) {
@@ -225,11 +301,13 @@ switch(numberEn){
 }}}
 
 
+
+
 void mouseMoved(){
   nX = mouseX;
   nY = mouseY;  
 }
-
+ 
 void keyPressed (){
 	
 	gameKeyCode = keyCode;
@@ -266,7 +344,9 @@ void mouseClicked (){
 }
 
 
-var drawScene1 = function() {
+
+
+var drawScene1 = function() { //start
 gameElemnts = false;
 background( 200, 100, 50 );
 /*
@@ -275,7 +355,11 @@ rect(200, 200, 100, 100);
 fill(250, 250, 250);
 text("Sart", 245, 250);
 */
+
 image(IDeus1, 125, 200, 250, 83);
+
+
+
 if(nX>=125 && nX<=375 && nY >= 200 && nY <= 283 && click === true){
  currentScene = 3;	
  image(IDeus2, 125, 200, 250, 83);
@@ -283,20 +367,47 @@ if(nX>=125 && nX<=375 && nY >= 200 && nY <= 283 && click === true){
 }
 };
 
-var drawScene2 = function() {
+var drawScene2 = function() { //game
 background( 10, 255, 10 );
+textFont(PixelFont,25);
+fill(0,0,0);
+text(scoreEnemy, 450, 40);
+text(scorePlayer, 20, 40);
+text(tSecond, 245, 40);
+
+if(tSecond%howManySecondsGetPointForEnemy === 0 && nA!=tSecond){
+	scoreEnemy-=1;
+	nA=tSecond;
+}
+
+if(tSecond%howManySecondsLosePointForEnemy === 0 && nB!=tSecond){
+	scorePlayer+=1;
+	nB=tSecond;
+}
+
+showSpeedPoint = false;
 gameElemnts = true;
+gameEnemyMove = true;
+
 
  Player.hit();
  Player.posX += (nX-Player.posX-20)/playerSpeed;//Speed player
  Player.posY += (nY-Player.posY-20)/playerSpeed;
 
+ if (scoreEnemy <= 0) currentScene = 4;
+ 
 };
 
-var drawScene3 = function() {
+var drawScene3 = function() { //set enemy
 background( 10, 255, 100 );
 gameElemnts = true;
+gameEnemyMove = false;
 gameKeyCode = keyCode = wayS = 12;
+showSpeedPoint = true;
+fill(0,0,0);
+textFont(PixelFont,25);
+text(scoreEnemy, 450, 40);
+
 
 	
 	switch(numberEn){
@@ -337,52 +448,48 @@ gameKeyCode = keyCode = wayS = 12;
    break;
 		
    case 3:
-   En3.posX = nX;
-   En3.posY = nY;
+   En3.posX = nX+5;
+   En3.posY = nY+5;
    break;
    
   case 2:
-   En2.posX = nX;
-   En2.posY = nY;
+   En2.posX = nX+5;
+   En2.posY = nY+5;
    break;
    
   case 1:
-   En1.posX = nX;
-   En1.posY = nY;
+   En1.posX = nX+5;
+   En1.posY = nY+5;
    break;
    
    default:
    break;
 	}
 	
-	 if(numberEn >= 4) {
-	currentScene = 2;
-	Player.posX = 240;
-	Player.posY = 240;
+	if(scoreEnemy < 5) {
+	currentScene = 5;
+	scoreEnemy = 15;
+	numberEn--;
 	for(var a = 0; a<99999999; a++);
 	 }
-	
-   if(click === true){
-	   if(numberEn<=3) numberEn++;
+		
+	if(click  === true && mouseButton == RIGHT && scoreEnemy >= 10){
+	   if(scoreEnemy >= 10) numberEn++;
+	   scoreEnemy -= 10;
 	   click = false;
 }
- 
-
+	
 
 };
 
-var drawScene4 = function() {
+var drawScene4 = function() { //reset
 gameElemnts = false;
 background( 255, 50, 50 );
-/*
-fill(30, 67, 200);
-rect(200, 200, 100, 100);
-fill(250, 250, 250);
-text("Jeszcze raz!", 230, 250);
-*/
+
+
 image(IReset, 125, 200, 250, 83);
 
- //reset enemy position
+{//reset enemy position
    En1.posX = 1000;
    En1.posY = 1000;
    En2.posX = 1000;
@@ -404,21 +511,43 @@ image(IReset, 125, 200, 250, 83);
    En10.posX = 1000;
    En10.posY = 1000;
 
+   En1.speed = En2.speed = En3.speed = En4.speed = En5.speed = En6.speed = En7.speed = En8.speed = En9.speed = En10.speed = 5;
+   
+   
 	Player.posX = 2000;
 	Player.posY = 2000;
+}	
 	
 if(nX>=125 && nX<=375 && nY >= 200 && nY <= 283 && click === true){	
  click = false;
  numberEn = 1;
  currentScene = 3;
+ scoreEnemy += getScoreAfterReset; 
+ tSecond = 0;
 }
 };
 
-var drawScene5 = function() {
-	gameElemnts = false;
-	rect(23,23,23,23);
-	image(IDeus2,0,0,250,83);
-	 
+var drawScene5 = function() { //set player
+	background( 10, 255, 100 );
+	gameElemnts = true;
+	showSpeedPoint = true;
+	gameEnemyMove = false;
+	
+	fill(0,0,0);
+    textFont(PixelFont,25);
+	text(scorePlayer, 20, 40);
+	
+	Player.posX = 240;
+	Player.posY = 240;
+	
+	Player.config();
+	
+	if(gameKeyCode == 32){
+		currentScene = 2;
+		tSecond = 0;
+	}
+
+ 
 }
 
 //license beerware
