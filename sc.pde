@@ -1,10 +1,11 @@
 
-var currentScene = 1;
+var currentScene = 5;
 var scoreEnemy = 30;
 var scorePlayer = 30;
 
 var getScoreAfterReset = 20;
 var howManySecondsGetPointForEnemy = 2;
+
 
 var nX = 250, nY = 250;
 var playerSpeed = 12;
@@ -57,6 +58,8 @@ PPlayer.prototype.draw = function(){
 			
 	} }
 };
+
+
 
 PPlayer.prototype.hit = function(){
 	/*if (this.swordSide === 1){  //right
@@ -262,7 +265,7 @@ void mouseMoved(){
   nX = mouseX;
   nY = mouseY;  
 }
-
+ 
 void keyPressed (){
 	
 	gameKeyCode = keyCode;
@@ -354,6 +357,7 @@ showSpeedPoint = true;
 fill(0,0,0);
 textFont(PixelFont,25);
 text(scoreEnemy, 450, 40);
+text(scorePlayer, 20, 40);
 
 	
 	switch(numberEn){
@@ -418,8 +422,11 @@ text(scoreEnemy, 450, 40);
 	Player.posX = 240;
 	Player.posY = 240;
 	numberEn--;
+	tSecond = 0;
 	for(var a = 0; a<99999999; a++);
 	 }
+	
+	
 	
 	
 	   if(click === true && mouseButton == RIGHT && scoreEnemy >= 10){
@@ -481,16 +488,17 @@ if(nX>=125 && nX<=375 && nY >= 200 && nY <= 283 && click === true){
  numberEn = 1;
  currentScene = 3;
  scoreEnemy += getScoreAfterReset; 
+ tSecond = 0;
 }
 };
 
 var drawScene5 = function() {
+	background( 10, 255, 100 );
 	gameElemnts = false;
-	rect(23,23,23,23);
+	
+	if(gameKeyCode == 32) currentScene = 2;
 
-
-
-	 
+ 
 }
 
 //license beerware
