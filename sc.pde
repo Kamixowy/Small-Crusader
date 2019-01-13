@@ -1,6 +1,8 @@
 
-var currentScene = 3;
+var currentScene = 1;
 var scoreEnemy = 30;
+
+var getScoreAfterReset = 20;
 
 var nX = 250, nY = 250;
 var playerSpeed = 12;
@@ -12,6 +14,8 @@ var gameElemnts = true;
 var numberEn = 1;
 void click = false;
 var showSpeedPoint = false;
+var tSecond = 0;
+var m, n ; //helpful virables: draw, scene2 
 
 void setup(){
   size( 500, 500 );
@@ -93,7 +97,7 @@ PEnemy.prototype.draw = function (){ //drawing function
 	textFont(PixelFont,15);
 	if (showSpeedPoint){
 		text(this.speed, this.posX +10, this.posY -10);
-		if(nX>this.posX && nX<this.posX+this.size && nY>this.posY && nY<this.posY+this.size && click === true && mouseButton == LEFT && scoreEnemy > 0){
+		if(nX>this.posX && nX<this.posX+this.size && nY>this.posY && nY<this.posY+this.size && click === true && mouseButton == LEFT && scoreEnemy >= 5){
 			this.speed++;
 			click = false;
 			scoreEnemy -=5;
@@ -176,6 +180,13 @@ var En10 = new PEnemy (4000, 400, 5, 10);
 void draw(){
 	
 	if (++frane >=11) frane = 0;
+
+	if(m != second()){
+		tSecond++;
+		m = second();
+	}	
+	
+
 
   
     if (currentScene === 1) {
@@ -299,6 +310,7 @@ text("Sart", 245, 250);
 image(IDeus1, 125, 200, 250, 83);
 
 
+
 if(nX>=125 && nX<=375 && nY >= 200 && nY <= 283 && click === true){
  currentScene = 3;	
  image(IDeus2, 125, 200, 250, 83);
@@ -309,12 +321,19 @@ if(nX>=125 && nX<=375 && nY >= 200 && nY <= 283 && click === true){
 var drawScene2 = function() { //game
 background( 10, 255, 10 );
 textFont(PixelFont,25);
-fill(200, 200, 200);
 fill(0,0,0);
 text(scoreEnemy, 450, 40);
-showSpeedPoint = false;
+text(tSecond, 245, 40);
 
+if(tSecond%2 === 0 && n!=tSecond){
+	scoreEnemy-=1;
+	n=tSecond;
+	
+}
+
+showSpeedPoint = false;
 gameElemnts = true;
+
 
  Player.hit();
  Player.posX += (nX-Player.posX-20)/playerSpeed;//Speed player
@@ -389,8 +408,9 @@ text(scoreEnemy, 450, 40);
    break;
 	}
 	
-	if(scoreEnemy <= 0) {
+	if(scoreEnemy < 5) {
 	currentScene = 2;
+	scoreEnemy = 15;
 	Player.posX = 240;
 	Player.posY = 240;
 	numberEn--;
@@ -398,7 +418,7 @@ text(scoreEnemy, 450, 40);
 	 }
 	
 	
-	   if(click === true && mouseButton == RIGHT){
+	   if(click === true && mouseButton == RIGHT && scoreEnemy >= 10){
 	   if(scoreEnemy >= 10) numberEn++;
 	   scoreEnemy -= 10;
 	   click = false;
@@ -414,7 +434,7 @@ text(scoreEnemy, 450, 40);
 var drawScene4 = function() { //reset
 gameElemnts = false;
 background( 255, 50, 50 );
-scoreEnemy = 50;
+
 /*
 fill(30, 67, 200);
 rect(200, 200, 100, 100);
@@ -456,6 +476,7 @@ if(nX>=125 && nX<=375 && nY >= 200 && nY <= 283 && click === true){
  click = false;
  numberEn = 1;
  currentScene = 3;
+ scoreEnemy += getScoreAfterReset; 
 }
 };
 
