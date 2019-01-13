@@ -1,5 +1,6 @@
 
-var currentScene = 1;
+var currentScene = 3;
+var score = 30;
 
 var nX = 250, nY = 250;
 var playerSpeed = 12;
@@ -10,14 +11,13 @@ var frane = 0;
 var gameElemnts = true;
 var numberEn = 1;
 void click = false;
+var showSpeedPoint = false;
 
 void setup(){
   size( 500, 500 );
  // strokeWeight( 10 );
   frameRate( 30 );
-  
-
-
+ 
 }
 {// Object
 
@@ -90,6 +90,8 @@ PEnemy.prototype.draw = function (){ //drawing function
 	fill(30, 67, 200);
 	//rect(this.posX, this.posY, this.size, this.size);
 	image(IEnemyL, this.posX, this.posY, this.size, this.size);
+	textFont(PixelFont,15);
+	if (showSpeedPoint)text(this.speed, this.posX +10, this.posY -10);
 }
 
 PEnemy.prototype.waySide = function (){
@@ -118,6 +120,8 @@ if(frane%3 === 0){
 }
 }
 
+
+
 }	
 
 
@@ -135,7 +139,7 @@ var En9 = new PEnemy (4000, 400, 6, 9);
 var En10 = new PEnemy (4000, 400, 6, 10);
 }
 
-{ //declarate images
+{ //declarate images and font
    PImage IPlayerP;
    IPlayerP = loadImage("images/PlayerP.png");
    
@@ -153,6 +157,12 @@ var En10 = new PEnemy (4000, 400, 6, 10);
    
    PImage IReset;
    IReset = loadImage("images/reset.png");
+   
+
+   PFont PixelFont = loadFont("Pixeled.ttf");
+	//textFont(Pixela, 32);
+		text("elo", 23, 159);
+   
 }
    
 void draw(){
@@ -290,18 +300,29 @@ if(nX>=125 && nX<=375 && nY >= 200 && nY <= 283 && click === true){
 
 var drawScene2 = function() {
 background( 10, 255, 10 );
+textFont(PixelFont,25);
+fill(200, 200, 200);
+fill(0,0,0);
+text(score, 450, 40);
+showSpeedPoint = false;
+
 gameElemnts = true;
 
  Player.hit();
  Player.posX += (nX-Player.posX-20)/playerSpeed;//Speed player
  Player.posY += (nY-Player.posY-20)/playerSpeed;
 
+ 
 };
 
 var drawScene3 = function() {
 background( 10, 255, 100 );
 gameElemnts = true;
 gameKeyCode = keyCode = wayS = 12;
+showSpeedPoint = true;
+fill(0,0,0);
+textFont(PixelFont,25);
+text(score, 450, 40);
 
 	
 	switch(numberEn){
@@ -360,17 +381,22 @@ gameKeyCode = keyCode = wayS = 12;
    break;
 	}
 	
-	 if(numberEn >= 3) {
+	if(numberEn > 3) {
 	currentScene = 2;
 	Player.posX = 240;
 	Player.posY = 240;
+	numberEn--;
 	for(var a = 0; a<99999999; a++);
 	 }
 	
-   if(click === true){
-	   if(numberEn<=2) numberEn++;
+	
+	   if(click === true){
+	   if(numberEn<=3) numberEn++;
 	   click = false;
 }
+	
+
+
  
 
 
@@ -423,7 +449,9 @@ if(nX>=125 && nX<=375 && nY >= 200 && nY <= 283 && click === true){
 var drawScene5 = function() {
 	gameElemnts = false;
 	rect(23,23,23,23);
-	image(IDeus2,0,0,250,83);
+
+
+
 	 
 }
 
