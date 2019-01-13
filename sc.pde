@@ -1,8 +1,10 @@
 
 var currentScene = 1;
 var scoreEnemy = 30;
+var scorePlayer = 30;
 
 var getScoreAfterReset = 20;
+var howManySecondsGetPointForEnemy = 2;
 
 var nX = 250, nY = 250;
 var playerSpeed = 12;
@@ -323,9 +325,10 @@ background( 10, 255, 10 );
 textFont(PixelFont,25);
 fill(0,0,0);
 text(scoreEnemy, 450, 40);
+text(scorePlayer, 20, 40);
 text(tSecond, 245, 40);
 
-if(tSecond%2 === 0 && n!=tSecond){
+if(tSecond%howManySecondsGetPointForEnemy === 0 && n!=tSecond){
 	scoreEnemy-=1;
 	n=tSecond;
 	
@@ -339,6 +342,7 @@ gameElemnts = true;
  Player.posX += (nX-Player.posX-20)/playerSpeed;//Speed player
  Player.posY += (nY-Player.posY-20)/playerSpeed;
 
+ if (scoreEnemy <= 0) currentScene = 4;
  
 };
 
