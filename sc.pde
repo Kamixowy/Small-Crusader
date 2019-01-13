@@ -1,5 +1,5 @@
 
-var currentScene = 5;
+var currentScene = 1;
 var scoreEnemy = 30;
 var scorePlayer = 30;
 
@@ -14,6 +14,7 @@ var wayS = 5;
 const colTab = [];
 var frane = 0;
 var gameElemnts = true;
+var gameEnemyMove = true;
 var numberEn = 1;
 void click = false;
 var showSpeedPoint = false;
@@ -112,6 +113,9 @@ PEnemy.prototype.draw = function (){ //drawing function
 }
 
 PEnemy.prototype.waySide = function (){
+
+if(gameEnemyMove == true){
+
 	this.way = wayS; //get way side from global virable
 	colTab[this.colNum] = [this.posX, this.posY, this.size]; //get coolision info for table
 	
@@ -134,7 +138,7 @@ if(frane%3 === 0){
 	} else if ( this.way === 4){
 		this.posY += this.speed;
 	}
-}
+}}
 }
 
 
@@ -261,6 +265,8 @@ switch(numberEn){
 }}}
 
 
+
+
 void mouseMoved(){
   nX = mouseX;
   nY = mouseY;  
@@ -302,6 +308,8 @@ void mouseClicked (){
 }
 
 
+
+
 var drawScene1 = function() { //start
 gameElemnts = false;
 background( 200, 100, 50 );
@@ -339,6 +347,7 @@ if(tSecond%howManySecondsGetPointForEnemy === 0 && n!=tSecond){
 
 showSpeedPoint = false;
 gameElemnts = true;
+gameEnemyMove = true;
 
 
  Player.hit();
@@ -349,15 +358,16 @@ gameElemnts = true;
  
 };
 
-var drawScene3 = function() { //set
+var drawScene3 = function() { //set enemy
 background( 10, 255, 100 );
 gameElemnts = true;
+gameEnemyMove = false;
 gameKeyCode = keyCode = wayS = 12;
 showSpeedPoint = true;
 fill(0,0,0);
 textFont(PixelFont,25);
 text(scoreEnemy, 450, 40);
-text(scorePlayer, 20, 40);
+
 
 	
 	switch(numberEn){
@@ -417,28 +427,19 @@ text(scorePlayer, 20, 40);
 	}
 	
 	if(scoreEnemy < 5) {
-	currentScene = 2;
+	currentScene = 5;
 	scoreEnemy = 15;
-	Player.posX = 240;
-	Player.posY = 240;
 	numberEn--;
 	tSecond = 0;
 	for(var a = 0; a<99999999; a++);
 	 }
-	
-	
-	
-	
-	   if(click === true && mouseButton == RIGHT && scoreEnemy >= 10){
+		
+	if(click === true && mouseButton == RIGHT && scoreEnemy >= 10){
 	   if(scoreEnemy >= 10) numberEn++;
 	   scoreEnemy -= 10;
 	   click = false;
 }
 	
-
-
- 
-
 
 };
 
@@ -446,12 +447,7 @@ var drawScene4 = function() { //reset
 gameElemnts = false;
 background( 255, 50, 50 );
 
-/*
-fill(30, 67, 200);
-rect(200, 200, 100, 100);
-fill(250, 250, 250);
-text("Jeszcze raz!", 230, 250);
-*/
+
 image(IReset, 125, 200, 250, 83);
 
 {//reset enemy position
@@ -492,9 +488,15 @@ if(nX>=125 && nX<=375 && nY >= 200 && nY <= 283 && click === true){
 }
 };
 
-var drawScene5 = function() {
+var drawScene5 = function() { //set player
 	background( 10, 255, 100 );
-	gameElemnts = false;
+	gameElemnts = true;
+	fill(0,0,0);
+    textFont(PixelFont,25);
+	text(scorePlayer, 20, 40);
+	
+	Player.posX = 240;
+	Player.posY = 240;
 	
 	if(gameKeyCode == 32) currentScene = 2;
 
